@@ -2,26 +2,16 @@
 @using TimeTest.Models
 
 <div class="container main">
-    <div class="row time-row">
-        <div class="col-md-5 time-add">
-            <h1>Click Here to Add a Time</h1>
-            <div class="col-md-3 button-add">
-                <a asp-action="Create" class="btn btn-primary">Add Time</a>
-            </div>
-        </div>
-        <div class="col-md-5 time-add">
+    <div class="row pt-1 action-link-row">
+        <div class="action-links">
+            <a asp-action="Export" class="btn btn-dark exportbtn" style="width:fit-content"><span style="text-align:center">Export to CSV</span></a>
+            <a asp-action="Create" class="btn btn-primary createbtn">Add Time</a>
             @if (User.IsInRole("Admin"))
             {
-                <h1>Click Here to View All Times</h1>
-                <div class="col-md-4 button-add">
-                    <a asp-action="List" class="btn btn-primary"><span style="text-align:center">View All Times</span></a>
-                </div>
+                <a asp-action="List" class="btn btn-primary listbtn">View All Times</a>
             }
         </div>
         
-    </div>
-    <div class="row pt-5">
-        <a asp-action="Export" class="btn btn-dark" style="width:fit-content; margin-left:10px"><span style="text-align:center">Export to CSV</span></a>
         <table class="table table-hover table-bordered table-striped " id="myTable">
             <thead>
                 <tr>
