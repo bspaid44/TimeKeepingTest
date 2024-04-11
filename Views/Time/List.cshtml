@@ -1,0 +1,41 @@
+﻿@model TimeIndexViewModel
+
+<div class="container">
+    <div class="row pt-5">
+        @if (!Model.Times.Any())
+        {
+            <div>
+                <h1>There are no times to display</h1>
+            </div>
+        }
+        <a asp-action="Export" class="btn btn-dark" style="width:fit-content; margin-left:10px"><span style="text-align:center">Export to CSV</span></a>
+        <table id="myTable" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><h1>User</h1></th>
+                    <th><h1>Clock In</h1></th>
+                    <th><h1>Clock Out</h1></th>
+                    <th><h1>Date</h1></th>
+                    <th><h1>Time Worked</h1></th>
+                    <th><h1>Edit</h1></th>
+                    <th><h1>Delete</h1></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var time in Model.Times)
+                {
+                    <tr>
+                        <td>@time.UserId</td>
+                        <td>@time.ClockIn</td>
+                        <td>@time.ClockOut</td>
+                        <td>@time.Date.ToString("d")</td>
+                        <td>@time.HoursWorked()</td>
+                        <td><a asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>
+                        <td><a asp-action="Delete" asp-route-id="@time.Id" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

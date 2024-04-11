@@ -1,0 +1,73 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.main-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow : 0 0 10px 0 rgba(0,0,0,0.5);
+    border: groove;
+}
+
+.time-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.time-add {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    border: groove;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-add {
+    margin-top: 10px;
+}
+
+.table {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    border: groove;
+}
+
+tr {
+    text-align: center;
+    border: groove;
+}
+
+tr:hover {
+    background-color: lightsteelblue;
+    transform: scale(1.05);
+    transition: .2s;
+}
+
+.main {
+    padding: 20px;
+    height: 100%;
+}

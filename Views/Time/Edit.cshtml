@@ -1,0 +1,33 @@
+﻿@model Time
+
+<div class="container main-form">
+    <h2>Edit Time</h2>
+    <div class="row">
+        <form asp-action="Update" method="post" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <div class="col-md-4">
+                <label asp-for="UserId">Username</label>
+                <input asp-for="UserId" class="form-control" id="username" value="@Model.UserId" readonly/>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ClockIn">Clock In Time</label>
+                <input asp-for="ClockIn" class="form-control" id="clockin" value="@Model.ClockIn" placeholder="HH:MM" />
+                <span asp-validation-for="ClockIn" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ClockOut">Clock Out Time</label>
+                <input asp-for="ClockOut" class="form-control" id="clockout" value="@Model.ClockOut" />
+                <span asp-validation-for="ClockOut" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Date">Today's Date</label>
+                <input asp-for="Date" class="form-control" id="date" value="@Model.Date.ToString("d")" />
+            </div>
+            <div class="col-md-4 pt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
+        </form>
+    </div>
+</div>

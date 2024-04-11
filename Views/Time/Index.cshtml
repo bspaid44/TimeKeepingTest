@@ -1,0 +1,83 @@
+﻿@model TimeIndexViewModel
+@using TimeTest.Models
+
+<div class="container main">
+    <div class="row time-row">
+        <div class="col-md-5 time-add">
+            <h1>Click Here to Add a Time</h1>
+            <div class="col-md-3 button-add">
+                <a asp-action="Create" class="btn btn-primary">Add Time</a>
+            </div>
+        </div>
+        <div class="col-md-5 time-add">
+            @if (User.IsInRole("Admin"))
+            {
+                <h1>Click Here to View All Times</h1>
+                <div class="col-md-4 button-add">
+                    <a asp-action="List" class="btn btn-primary"><span style="text-align:center">View All Times</span></a>
+                </div>
+            }
+        </div>
+        
+    </div>
+    <div class="row pt-5">
+        <a asp-action="Export" class="btn btn-dark" style="width:fit-content; margin-left:10px"><span style="text-align:center">Export to CSV</span></a>
+        <table class="table table-hover table-bordered table-striped " id="myTable">
+            <thead>
+                <tr>
+                    <th><h1>User</h1></th>
+                    <th><h1>Clock In</h1></th>
+                    <th><h1>Clock Out</h1></th>
+                    <th><h1>Date</h1></th>
+                    <th><h1>Time Worked</h1></th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th><h1>Edit</h1></th>
+                        <th><h1>Delete</h1></th>
+                    }
+                </tr>
+            </thead>
+            
+            @if (!Model.Times.Any())
+            {
+                <div>
+                    <h1>There are no times to display</h1>
+                </div>
+            }
+            else
+            {
+                @foreach (var time in Model.Times)
+                {
+                    if (time.UserId == User.Identity.Name)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@time.UserId</td>
+                                <td>@time.ClockIn</td>
+                                <td>@time.ClockOut</td>
+                                <td>@time.Date.ToString("d")</td>
+                                <td>@time.HoursWorked()</td>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <td><a asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>
+                                    <td><a asp-action="Delete" asp-route-id="@time.Id" class="btn btn-danger">Delete</a></td>
+                                }
+                            </tr>
+                        </tbody>
+                        
+                    }
+
+                    else
+                    {
+                        <div>
+                            <h1>There are no times to display</h1>
+                        </div>
+                    }
+                }
+            }
+
+        </table>
+    </div>
+</div>
+
+
