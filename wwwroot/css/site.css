@@ -61,12 +61,6 @@ tr {
     border: groove;
 }
 
-tr:hover {
-    background-color: lightsteelblue;
-    transform: scale(1.05);
-    transition: .2s;
-}
-
 .main {
     padding: 20px;
     height: 100%;
