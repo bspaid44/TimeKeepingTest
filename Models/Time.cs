@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing.Text;
 using TimeTest.Data;
 
@@ -22,7 +23,7 @@ namespace TimeTest.Models
         public DateTimeOffset Date { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string UserEmail { get; set; }
 
         public string? TaskNotes { get; set; }
 
@@ -35,7 +36,7 @@ namespace TimeTest.Models
             ClockIn = clockIn;
             ClockOut = clockOut;
             Date = date;
-            UserId = userId;
+            UserEmail = userId;
             TaskNotes = taskNotes;
         }
 

@@ -19,7 +19,7 @@ namespace TimeTest.Controllers
 
         public IActionResult Index()
         {
-            TimeIndexViewModel timeIndexViewModel = new TimeIndexViewModel(_timeRepository.Times.Where(t => t.UserId == User.Identity.Name));
+            TimeIndexViewModel timeIndexViewModel = new TimeIndexViewModel(_timeRepository.Times.Where(t => t.UserEmail == User.Identity.Name));
             return View(timeIndexViewModel);
         }
 
@@ -38,13 +38,13 @@ namespace TimeTest.Controllers
         [HttpPost]
         public IActionResult Create(Time time)
         {
-            if (time.UserId != User.Identity.Name)
+            if (time.UserEmail != User.Identity.Name)
             {
                 return Forbid();
             }
             else if (TryValidateModel(time))
             {
-                _timeRepository.SaveTime(time);
+                _timeRepository.SaveTime(time, time.UserEmail);
                 return RedirectToAction("Index");
             }
             else
@@ -91,7 +91,7 @@ namespace TimeTest.Controllers
         [HttpPost]
         public FileResult ExportToCSV([FromForm] string user, [FromForm] DateTime startDate, [FromForm] DateTime endDate)
         {
-            var times = _timeRepository.Times.Where(t => t.UserId == user && t.Date >= startDate && t.Date <= endDate);
+            var times = _timeRepository.Times.Where(t => t.UserEmail == user && t.Date >= startDate && t.Date <= endDate);
             var csv = new System.Text.StringBuilder();
             csv.AppendLine("Clock In, Clock Out, Date, Hours Worked, Notes");
             foreach (var time in times)

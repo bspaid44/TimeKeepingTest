@@ -13,9 +13,10 @@ namespace TimeTest.Models
 
         public IEnumerable<Time> Times => context.Times;
 
-        public void SaveTime(Time time)
+        public void SaveTime(Time time, string userEmail)
         {
             context.Times.Add(time);
+            context.TimeRecords.Add(new TimeRecord(time, userEmail));
             context.SaveChanges();
         }
 

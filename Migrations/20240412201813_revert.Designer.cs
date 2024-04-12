@@ -9,11 +9,11 @@ using TimeTest.Data;
 
 #nullable disable
 
-namespace TimeTest.Data.Migrations
+namespace TimeTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240412031808_TaskNotes")]
-    partial class TaskNotes
+    [Migration("20240412201813_revert")]
+    partial class revert
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,35 @@ namespace TimeTest.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TimeTest.Models.Clients.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BillingAddressCity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingAddressState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingAddressStreet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingAddressZip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("TimeTest.Models.Time", b =>
                 {
                     b.Property<int>("Id")
@@ -251,7 +280,7 @@ namespace TimeTest.Data.Migrations
                     b.Property<string>("TaskNotes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

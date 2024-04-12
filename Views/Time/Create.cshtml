@@ -6,8 +6,8 @@
         <form asp-action="Create" method="post" role="form" class="form-body">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="col-md-4">
-                <label asp-for="UserId" class="form-label">Username</label>
-                <input asp-for="UserId" class="form-control" id="username" value="@User.Identity.Name" readonly/>
+                <label asp-for="UserEmail" class="form-label">Username</label>
+                <input asp-for="UserEmail" class="form-control" id="username" value="@User.Identity.Name" readonly/>
             </div>
             <div class="col-md-4">
                 <label asp-for="ClockIn" class="form-label">Clock In Time</label>

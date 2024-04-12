@@ -39,11 +39,11 @@
             {
                 @foreach (var time in Model.Times)
                 {
-                    if (time.UserId == User.Identity.Name)
+                    if (time.UserEmail == User.Identity.Name)
                     {
                         <tbody>
                             <tr>
-                                <td>@time.UserId</td>
+                                <td>@time.UserEmail</td>
                                 <td>@time.ClockIn</td>
                                 <td>@time.ClockOut</td>
                                 <td>@time.Date.ToString("d")</td>
