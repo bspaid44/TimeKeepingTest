@@ -93,10 +93,10 @@ namespace TimeTest.Controllers
         {
             var times = _timeRepository.Times.Where(t => t.UserId == user && t.Date >= startDate && t.Date <= endDate);
             var csv = new System.Text.StringBuilder();
-            csv.AppendLine("Clock In, Clock Out, Date, Hours Worked");
+            csv.AppendLine("Clock In, Clock Out, Date, Hours Worked, Notes");
             foreach (var time in times)
             {
-                csv.AppendLine($"{time.ClockIn}, {time.ClockOut}, {time.Date}, {time.HoursWorked()}");
+                csv.AppendLine($"{time.ClockIn}, {time.ClockOut}, {time.Date}, {time.HoursWorked()}, {time.TaskNotes}");
             }
             return File(System.Text.Encoding.UTF8.GetBytes(csv.ToString()), "text/csv", "times.csv");
         }

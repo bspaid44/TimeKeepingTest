@@ -24,6 +24,10 @@
                 <label asp-for="Date">Today's Date</label>
                 <input asp-for="Date" class="form-control" id="date" value="@Model.Date.ToString("d")" />
             </div>
+            <div class="col-md-4">
+                <label asp-for="TaskNotes">Task Notes</label>
+                <textarea asp-for="TaskNotes" class="form-control" id="tasknotes" placeholder="Enter your task notes here">@Model.TaskNotes</textarea>
+            </div>
             <div class="col-md-4 pt-2">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

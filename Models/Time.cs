@@ -24,16 +24,19 @@ namespace TimeTest.Models
         [Required]
         public string UserId { get; set; }
 
+        public string? TaskNotes { get; set; }
+
         public Time()
         {
         }
 
-        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId)
+        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId, string? taskNotes)
         {
             ClockIn = clockIn;
             ClockOut = clockOut;
             Date = date;
             UserId = userId;
+            TaskNotes = taskNotes;
         }
 
         public double HoursWorked()
