@@ -3,7 +3,7 @@
 
 <div class="container main">
     <div class="row pt-1 action-link-row">
-        <div class="action-links">
+        <div class="action-links pb-2">
             <a asp-action="Export" class="btn btn-dark exportbtn" style="width:fit-content"><span style="text-align:center">Export to CSV</span></a>
             <a asp-action="Create" class="btn btn-primary createbtn">Add Time</a>
             @if (User.IsInRole("Admin"))
@@ -20,7 +20,6 @@
                     <th><h1>Clock Out</h1></th>
                     <th><h1>Date</h1></th>
                     <th><h1>Time Worked</h1></th>
-                    <th><h1>Task Notes</h1></th>
                     @if (User.IsInRole("Admin"))
                     {
                         <th><h1>Edit</h1></th>
@@ -48,7 +47,6 @@
                                 <td>@time.ClockOut</td>
                                 <td>@time.Date.ToString("d")</td>
                                 <td>@time.HoursWorked()</td>
-                                <td>@time.TaskNotes</td>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <td><a asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>

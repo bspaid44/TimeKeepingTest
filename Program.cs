@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TimeTest.Data;
 using TimeTest.Models;
+using TimeTest.Models.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 
@@ -70,5 +72,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Time}/{action=Index}/{id?}");
 app.MapRazorPages();
-
+DbInitializer.Initialize(app);
 app.Run();
