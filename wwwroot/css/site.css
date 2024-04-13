@@ -65,3 +65,7 @@ tr {
     padding: 20px;
     height: 100%;
 }
+
+#billingAddressState {
+    appearance: auto !important;
+}
