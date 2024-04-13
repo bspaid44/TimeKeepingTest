@@ -1,4 +1,5 @@
 ﻿using TimeTest.Data;
+using TimeTest.Models.Clients;
 
 namespace TimeTest.Models
 {
@@ -13,10 +14,9 @@ namespace TimeTest.Models
 
         public IEnumerable<Time> Times => context.Times;
 
-        public void SaveTime(Time time, string userEmail)
+        public void SaveTime(Time time)
         {
             context.Times.Add(time);
-            context.TimeRecords.Add(new TimeRecord(time, userEmail));
             context.SaveChanges();
         }
 

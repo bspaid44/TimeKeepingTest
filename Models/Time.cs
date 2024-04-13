@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing.Text;
 using TimeTest.Data;
+using TimeTest.Models.Clients;
 
 
 namespace TimeTest.Models
@@ -27,17 +29,21 @@ namespace TimeTest.Models
 
         public string? TaskNotes { get; set; }
 
+        [ForeignKey("Client")]
+        public int ClientId { get; set; }
+
         public Time()
         {
         }
 
-        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId, string? taskNotes)
+        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId, string? taskNotes, int clientId)
         {
             ClockIn = clockIn;
             ClockOut = clockOut;
             Date = date;
             UserEmail = userId;
             TaskNotes = taskNotes;
+            ClientId = clientId;
         }
 
         public double HoursWorked()

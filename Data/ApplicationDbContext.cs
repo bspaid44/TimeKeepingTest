@@ -14,7 +14,6 @@ namespace TimeTest.Data
 
         public DbSet<Time> Times { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<TimeRecord> TimeRecords { get; set; }
 
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TimeTest.Migrations
 {
     /// <inheritdoc />
-    public partial class revert : Migration
+    public partial class ClientTimeLink : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,31 +57,16 @@ namespace TimeTest.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BillingAddressStreet = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BillingAddressCity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BillingAddressState = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BillingAddressZip = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BillingAddressStreet = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillingAddressCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillingAddressState = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillingAddressZip = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Times",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClockIn = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    ClockOut = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TaskNotes = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Times", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +175,30 @@ namespace TimeTest.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Times",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClockIn = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    ClockOut = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaskNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Times", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Times_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -228,6 +237,11 @@ namespace TimeTest.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Times_ClientId",
+                table: "Times",
+                column: "ClientId");
         }
 
         /// <inheritdoc />
@@ -249,9 +263,6 @@ namespace TimeTest.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Clients");
-
-            migrationBuilder.DropTable(
                 name: "Times");
 
             migrationBuilder.DropTable(
@@ -259,6 +270,9 @@ namespace TimeTest.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
         }
     }
 }

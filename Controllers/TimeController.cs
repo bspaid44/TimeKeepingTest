@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using TimeTest.Data;
 using TimeTest.Models;
+using TimeTest.Models.Clients;
 using TimeTest.ViewModels;
 
 namespace TimeTest.Controllers
@@ -11,10 +13,13 @@ namespace TimeTest.Controllers
     public class TimeController : Controller
     {
         private readonly ITimeRepository _timeRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly ApplicationDbContext _context;
 
-        public TimeController(ITimeRepository timeRepository)
+        public TimeController(ITimeRepository timeRepository, IClientRepository clientRepository)
         {
             _timeRepository = timeRepository;
+            _clientRepository = clientRepository;
         }
 
         public IActionResult Index()
@@ -25,7 +30,8 @@ namespace TimeTest.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            CreateTimeViewModel createTimeViewModel = new CreateTimeViewModel(_clientRepository.Clients);
+            return View(createTimeViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -38,18 +44,19 @@ namespace TimeTest.Controllers
         [HttpPost]
         public IActionResult Create(Time time)
         {
+            CreateTimeViewModel createTimeViewModel = new CreateTimeViewModel(_clientRepository.Clients);
             if (time.UserEmail != User.Identity.Name)
             {
                 return Forbid();
             }
             else if (TryValidateModel(time))
             {
-                _timeRepository.SaveTime(time, time.UserEmail);
+                _timeRepository.SaveTime(time);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(time);
+                return View(createTimeViewModel);
             }
         }
 

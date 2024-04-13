@@ -1,4 +1,5 @@
-﻿@model Time
+﻿@model CreateTimeViewModel
+
 
 <div class="container main-form">
     <h2 class="form-body-title">Add Time</h2>
@@ -6,26 +7,36 @@
         <form asp-action="Create" method="post" role="form" class="form-body">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="col-md-4">
-                <label asp-for="UserEmail" class="form-label">Username</label>
-                <input asp-for="UserEmail" class="form-control" id="username" value="@User.Identity.Name" readonly/>
+                <label asp-for="Time.UserEmail" class="form-label">Username</label>
+                <input asp-for="Time.UserEmail" class="form-control" id="username" value="@User.Identity.Name" readonly/>
             </div>
             <div class="col-md-4">
-                <label asp-for="ClockIn" class="form-label">Clock In Time</label>
-                <input asp-for="ClockIn" class="form-control" id="clockin" placeholder="HH:MM"/>
-                <span asp-validation-for="ClockIn" class="text-danger"></span>
+                <label asp-for="Time.ClockIn" class="form-label">Clock In Time</label>
+                <input asp-for="Time.ClockIn" class="form-control" id="clockin" placeholder="HH:MM"/>
+                <span asp-validation-for="Time.ClockIn" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                <label asp-for="ClockOut" class="form-label">Clock Out Time</label>
-                <input asp-for="ClockOut" class="form-control" id="clockout" value="@DateTime.Now.ToString("HH:mm")"/>
-                <span asp-validation-for="ClockOut" class="text-danger"></span>
+                <label asp-for="Time.ClockOut" class="form-label">Clock Out Time</label>
+                <input asp-for="Time.ClockOut" class="form-control" id="clockout" value="@DateTime.Now.ToString("HH:mm")"/>
+                <span asp-validation-for="Time.ClockOut" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                <label asp-for="Date" class="form-label">Today's Date</label>
-                <input asp-for="Date" class="form-control" id="date" value="@DateTime.Today.Date.ToString("d")" />
+                <label asp-for="Time.Date" class="form-label">Today's Date</label>
+                <input asp-for="Time.Date" class="form-control" id="date" value="@DateTime.Today.Date.ToString("d")" />
             </div>
             <div class="col-md-4">
-                <label asp-for="TaskNotes" class="form-label">Task Notes</label>
-                <textarea asp-for="TaskNotes" class="form-control" id="tasknotes" placeholder="Enter your task notes here"></textarea>
+                <label asp-for="Time.ClientId" class="form-label">Client</label>
+                <select asp-for="Time.ClientId" class="form-control" id="client">
+                    <option value="" selected>Select a client</option>
+                    @foreach (var client in Model.Clients)
+                    {
+                        <option value="@client.Id">@client.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Time.TaskNotes" class="form-label">Task Notes</label>
+                <textarea asp-for="Time.TaskNotes" class="form-control" id="tasknotes" placeholder="Enter your task notes here"></textarea>
             </div>
             <div class="col-md-4 pt-2">
                 <button type="submit" class="btn btn-primary">Submit</button>

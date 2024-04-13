@@ -69,3 +69,7 @@ tr {
 #billingAddressState {
     appearance: auto !important;
 }
+
+#client {
+    appearance: auto !important;
+}
