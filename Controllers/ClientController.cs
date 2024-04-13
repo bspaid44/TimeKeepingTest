@@ -40,6 +40,7 @@ namespace TimeTest.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
             Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
@@ -59,6 +60,7 @@ namespace TimeTest.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public RedirectToActionResult Delete(int id)
         {
             Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
