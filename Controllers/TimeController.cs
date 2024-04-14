@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using NuGet.Protocol;
+using System.Threading.Tasks.Dataflow;
 using TimeTest.Data;
 using TimeTest.Models;
 using TimeTest.Models.Clients;
@@ -39,6 +41,12 @@ namespace TimeTest.Controllers
         {
             TimeIndexViewModel timeIndexViewModel = new TimeIndexViewModel(_timeRepository.Times);
             return View(timeIndexViewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            Time time = _timeRepository.Times.FirstOrDefault(t => t.Id == id);
+            return View(time);
         }
 
         [HttpPost]

@@ -10,6 +10,7 @@ namespace TimeTest.Models
 {
     public class Time
     {
+        private readonly ApplicationDbContext context;
         public int Id { get; set; }
 
         [Required]
@@ -58,6 +59,13 @@ namespace TimeTest.Models
             var outTime = outHour + (outMinute / 60.0);
 
             return Math.Round(outTime - inTime, 2);
+        }
+
+        public string ClientName()
+        {
+            var client = context.Clients.FirstOrDefault(c => c.Id == ClientId);
+            string clientName = client.Name;
+            return clientName;
         }
     }
 }
