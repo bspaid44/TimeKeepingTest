@@ -1,4 +1,6 @@
-﻿namespace TimeTest.Models
+﻿using TimeTest.Models.Clients;
+
+namespace TimeTest.Models
 {
     public interface ITimeRepository
     {

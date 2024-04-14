@@ -1,12 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing.Text;
 using TimeTest.Data;
+using TimeTest.Models.Clients;
 
 
 namespace TimeTest.Models
 {
     public class Time
     {
+        private readonly ApplicationDbContext context;
         public int Id { get; set; }
 
         [Required]
@@ -22,21 +26,25 @@ namespace TimeTest.Models
         public DateTimeOffset Date { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string UserEmail { get; set; }
 
         public string? TaskNotes { get; set; }
+
+        [ForeignKey("Client")]
+        public int ClientId { get; set; }
 
         public Time()
         {
         }
 
-        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId, string? taskNotes)
+        public Time(string clockIn, string clockOut, DateTimeOffset date, string userId, string? taskNotes, int clientId)
         {
             ClockIn = clockIn;
             ClockOut = clockOut;
             Date = date;
-            UserId = userId;
+            UserEmail = userId;
             TaskNotes = taskNotes;
+            ClientId = clientId;
         }
 
         public double HoursWorked()
@@ -51,6 +59,13 @@ namespace TimeTest.Models
             var outTime = outHour + (outMinute / 60.0);
 
             return Math.Round(outTime - inTime, 2);
+        }
+
+        public string ClientName()
+        {
+            var client = context.Clients.FirstOrDefault(c => c.Id == ClientId);
+            string clientName = client.Name;
+            return clientName;
         }
     }
 }

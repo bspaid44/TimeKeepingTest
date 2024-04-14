@@ -1,4 +1,5 @@
 ﻿using TimeTest.Data;
+using TimeTest.Models.Clients;
 
 namespace TimeTest.Models
 {

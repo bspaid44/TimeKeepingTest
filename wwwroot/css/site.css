@@ -57,11 +57,19 @@ body {
 }
 
 tr {
-    text-align: center;
+    text-align: center !important;
     border: groove;
 }
 
 .main {
     padding: 20px;
     height: 100%;
+}
+
+#billingAddressState {
+    appearance: auto !important;
+}
+
+#client {
+    appearance: auto !important;
 }

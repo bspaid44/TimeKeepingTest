@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TimeTest.Models;
+using TimeTest.Models.Clients;
 
 namespace TimeTest.Data
 {
@@ -12,5 +13,7 @@ namespace TimeTest.Data
         }
 
         public DbSet<Time> Times { get; set; }
+        public DbSet<Client> Clients { get; set; }
+
     }
 }

@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using NuGet.Protocol;
+using System.Threading.Tasks.Dataflow;
+using TimeTest.Data;
 using TimeTest.Models;
+using TimeTest.Models.Clients;
 using TimeTest.ViewModels;
 
 namespace TimeTest.Controllers
@@ -11,21 +15,25 @@ namespace TimeTest.Controllers
     public class TimeController : Controller
     {
         private readonly ITimeRepository _timeRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly ApplicationDbContext _context;
 
-        public TimeController(ITimeRepository timeRepository)
+        public TimeController(ITimeRepository timeRepository, IClientRepository clientRepository)
         {
             _timeRepository = timeRepository;
+            _clientRepository = clientRepository;
         }
 
         public IActionResult Index()
         {
-            TimeIndexViewModel timeIndexViewModel = new TimeIndexViewModel(_timeRepository.Times.Where(t => t.UserId == User.Identity.Name));
+            TimeIndexViewModel timeIndexViewModel = new TimeIndexViewModel(_timeRepository.Times.Where(t => t.UserEmail == User.Identity.Name));
             return View(timeIndexViewModel);
         }
 
         public IActionResult Create()
         {
-            return View();
+            CreateTimeViewModel createTimeViewModel = new CreateTimeViewModel(_clientRepository.Clients);
+            return View(createTimeViewModel);
         }
 
         [Authorize(Roles = "Admin")]
@@ -35,10 +43,17 @@ namespace TimeTest.Controllers
             return View(timeIndexViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            Time time = _timeRepository.Times.FirstOrDefault(t => t.Id == id);
+            return View(time);
+        }
+
         [HttpPost]
         public IActionResult Create(Time time)
         {
-            if (time.UserId != User.Identity.Name)
+            CreateTimeViewModel createTimeViewModel = new CreateTimeViewModel(_clientRepository.Clients);
+            if (time.UserEmail != User.Identity.Name)
             {
                 return Forbid();
             }
@@ -49,7 +64,7 @@ namespace TimeTest.Controllers
             }
             else
             {
-                return View(time);
+                return View(createTimeViewModel);
             }
         }
 
@@ -91,7 +106,7 @@ namespace TimeTest.Controllers
         [HttpPost]
         public FileResult ExportToCSV([FromForm] string user, [FromForm] DateTime startDate, [FromForm] DateTime endDate)
         {
-            var times = _timeRepository.Times.Where(t => t.UserId == user && t.Date >= startDate && t.Date <= endDate);
+            var times = _timeRepository.Times.Where(t => t.UserEmail == user && t.Date >= startDate && t.Date <= endDate);
             var csv = new System.Text.StringBuilder();
             csv.AppendLine("Clock In, Clock Out, Date, Hours Worked, Notes");
             foreach (var time in times)
