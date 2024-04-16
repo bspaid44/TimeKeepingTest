@@ -4,10 +4,21 @@
     <h2>Export Time</h2>
     <div class="row">
         <form asp-action="ExportToCSV" method="post" role="form">
-            <div class="col-md-4">
-                <label asp-for="UserEmail" class="form-label">Username</label>
-                <input name="user" class="form-control" id="username" value="@User.Identity.Name"/>
-            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-4">
+                    <label asp-for="UserEmail" class="form-label">Username</label>
+                    <input name="user" class="form-control" id="username" value="@User.Identity.Name" />
+                </div>
+            }
+            else {
+                <div class="col-md-4">
+                    <label asp-for="UserEmail" class="form-label">Username</label>
+                    <input name="user" class="form-control" id="username" value="@User.Identity.Name" readonly/>
+                </div>
+            }
+            
             <div class="col-md-4">
                 <label class="form-label">Start Date Range</label>
                 <input name="startDate" class="form-control" id="startdate" placeholder="@DateTime.Today.Date.ToString("d")"/>

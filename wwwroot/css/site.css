@@ -96,3 +96,14 @@ tr {
 #client {
     appearance: auto !important;
 }
+
+#time {
+    appearance: auto !important;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+}

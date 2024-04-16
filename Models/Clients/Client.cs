@@ -56,5 +56,11 @@ namespace TimeTest.Models.Clients
             TimeBlock += timeBlock;
             return (double)TimeBlock;
         }
+
+        public double SubtractTimeWorked(double hoursWorked)
+        {
+            TimeBlock -= hoursWorked;
+            return (double)TimeBlock;
+        }
     }
 }

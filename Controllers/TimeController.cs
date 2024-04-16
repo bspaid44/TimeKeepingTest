@@ -59,7 +59,10 @@ namespace TimeTest.Controllers
             }
             else if (TryValidateModel(time))
             {
+                Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == time.ClientId);
+                client.TimeBlock = client.SubtractTimeWorked(time.HoursWorked());
                 _timeRepository.SaveTime(time);
+                _clientRepository.UpdateClient(client);
                 return RedirectToAction("Index");
             }
             else

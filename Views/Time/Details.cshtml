@@ -2,8 +2,17 @@
 @using TimeTest.Models
 
 <div class="container col-md-8 main-form">
-    <div class="row text-decoration-underline">
-        <h2>@Model.Date.ToString("d") Details</h2>
+    <div class="row ">
+        <div class="col-md-6 text-decoration-underline">
+            <h2>@Model.Date.ToString("d") Details</h2>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-md-6 header-buttons">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            </div>
+        }
     </div>
     <div class="row pt-3">
         <div class="col-md-8">
