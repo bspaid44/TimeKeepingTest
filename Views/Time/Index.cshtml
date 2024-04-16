@@ -37,7 +37,7 @@
             }
             else
             {
-                @foreach (var time in Model.Times)
+                @foreach (var time in Model.Times.OrderBy(t => t.Date))
                 {
                     if (time.UserEmail == User.Identity.Name)
                     {

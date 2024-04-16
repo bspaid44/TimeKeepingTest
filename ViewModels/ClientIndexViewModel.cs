@@ -1,4 +1,5 @@
-﻿using TimeTest.Models.Clients;
+﻿using TimeTest.Models;
+using TimeTest.Models.Clients;
 
 namespace TimeTest.ViewModels
 {

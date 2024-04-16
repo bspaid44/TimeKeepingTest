@@ -22,12 +22,20 @@
             <p>@Model.Phone</p>
             <h4>Email Address</h4>
             <p>@Model.Email</p>
+            <a asp-action="TimeDetails" asp-route-id="@Model.Id" class="btn btn-primary">View Tasks</a>
         </div>
         <div class="col-md-4">
             <h4>Time Block</h4>
             <p>@Model.TimeBlock</p>
             @if (User.IsInRole("Admin"))
             {
+                @if (Model.TimeBlock < 0)
+                {
+                    <div class="text-danger">
+                        <p>Negative Time Balance billed monthly</p>
+                        <p>Add time to avoid overcharge fee</p>
+                    </div>
+                }
                 <h4>Add Time</h4>
                 <form asp-action="AddTime" method="post" role="form" class="form-body">
                     <div asp-validation-summary="All" class="text-danger"></div>

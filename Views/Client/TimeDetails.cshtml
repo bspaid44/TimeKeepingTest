@@ -1,0 +1,43 @@
+﻿@model ClientTimeViewModel
+
+<div class="container">
+    <div class="row">
+        <h2>@Model.Client.Name Time Details</h2>
+    </div>
+    <table class="table table-hover table-bordered table-striped " id="myTable">
+        <thead>
+            <tr>
+                <th><h1>Id</h1></th>
+                <th><h1>User</h1></th>
+                <th><h1>Clock In</h1></th>
+                <th><h1>Clock Out</h1></th>
+                <th><h1>Date</h1></th>
+                <th><h1>Time Worked</h1></th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th><h1>Edit</h1></th>
+                    <th><h1>Delete</h1></th>
+                }
+            </tr>
+        </thead>
+            @foreach (var time in Model.Times)
+            {
+                <tbody>
+                    <tr>
+                        <td><a asp-controller="Time" asp-action="Details" asp-route-id="@time.Id" class="time-link">@time.Id</a></td>
+                        <td>@time.UserEmail</td>
+                        <td>@time.ClockIn</td>
+                        <td>@time.ClockOut</td>
+                        <td>@time.Date.ToString("d")</td>
+                        <td>@time.HoursWorked()</td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td><a asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>
+                            <td><a asp-action="Delete" asp-route-id="@time.Id" class="btn btn-danger">Delete</a></td>
+                        }
+                    </tr>
+                </tbody>
+            }
+
+    </table>
+</div>

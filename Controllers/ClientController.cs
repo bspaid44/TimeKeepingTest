@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TimeTest.Data;
+using TimeTest.Models;
 using TimeTest.Models.Clients;
 using TimeTest.ViewModels;
 
@@ -9,10 +11,12 @@ namespace TimeTest.Controllers
     public class ClientController : Controller
     {
         private readonly IClientRepository _clientRepository;
+        private readonly ITimeRepository _timeRepository;
 
-        public ClientController(IClientRepository clientRepository)
+        public ClientController(IClientRepository clientRepository, ITimeRepository timeRepository)
         {
             _clientRepository = clientRepository;
+            _timeRepository = timeRepository;
         }
         public IActionResult Index()
         {
@@ -24,6 +28,14 @@ namespace TimeTest.Controllers
         {
             Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
             return View(client);
+        }
+
+        public IActionResult TimeDetails(int id)
+        {
+            Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
+            IEnumerable<Time> times = _timeRepository.Times.Where(t => t.ClientId == id);
+            ClientTimeViewModel clientTimeViewModel = new ClientTimeViewModel(client, times);
+            return View(clientTimeViewModel);
         }
 
         [Authorize(Roles = "Admin")]

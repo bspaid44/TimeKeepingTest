@@ -3,19 +3,18 @@ using TimeTest.Models.Clients;
 
 namespace TimeTest.ViewModels
 {
-    public class CreateTimeViewModel
+    public class ClientTimeViewModel
     {
         private ITimeRepository _timeRepository;
         private IClientRepository _clientRepository;
 
-        public IEnumerable<Client> Clients { get; set; }
-        public Time Time { get; set; }
         public Client Client { get; set; }
+        public IEnumerable<Time> Times { get; set; }
 
-        public CreateTimeViewModel(IEnumerable<Client> clients)
+        public ClientTimeViewModel(Client client, IEnumerable<Time> times)
         {
-            Clients = clients;
+            Client = client;
+            Times = times;
         }
-
     }
 }
