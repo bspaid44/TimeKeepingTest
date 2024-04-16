@@ -29,12 +29,13 @@ namespace TimeTest.Models.Clients
         [StringLength(12, MinimumLength = 12, ErrorMessage = "Not a valid phone number, please format as 111-111-1111")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number, please format as 111-111-1111")]
         public string? Phone { get; set; }
+        public double? TimeBlock { get; set; }
 
         public Client()
         {
         }
 
-        public Client(string name, string? billingAddressStreet, string? billingAddressCity, string? billingAddressState, string? billingAddressZip, string? email, string? phone)
+        public Client(string name, string? billingAddressStreet, string? billingAddressCity, string? billingAddressState, string? billingAddressZip, string? email, string? phone, double? timeBlock)
         {
             Name = name;
             BillingAddressStreet = billingAddressStreet;
@@ -43,6 +44,7 @@ namespace TimeTest.Models.Clients
             BillingAddressZip = billingAddressZip;
             Email = email;
             Phone = phone;
+            TimeBlock = timeBlock;
         }
 
         public string GetBillingAddress()

@@ -260,6 +260,9 @@ namespace TimeTest.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
+                    b.Property<double?>("TimeBlock")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("Clients");

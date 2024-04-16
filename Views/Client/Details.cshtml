@@ -1,0 +1,19 @@
+﻿@model Client
+
+<div class="container main-form col-md-8">
+    <div class="row text-decoration-underline">
+        <h2>@Model.Name Details</h2>
+    </div>
+    <div class="row pt-3">
+        <div class="col-md-8">
+            <h4>Billing Address</h4>
+            <p>@Model.GetBillingAddress()</p>
+            <h4>Phone:</h4>
+            <p>@Model.Phone</p>
+            <h4>Email Address</h4>
+            <p>@Model.Email</p>
+            <h4 class="pt-2">Time Block</h4>
+            <p>@Model.TimeBlock</p>
+        </div>
+    </div>
+</div>

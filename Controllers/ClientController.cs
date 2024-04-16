@@ -20,6 +20,12 @@ namespace TimeTest.Controllers
             return View(clientIndexViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
+            return View(client);
+        }
+
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {

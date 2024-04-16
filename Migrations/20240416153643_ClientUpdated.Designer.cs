@@ -12,8 +12,8 @@ using TimeTest.Data;
 namespace TimeTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240413144424_Time")]
-    partial class Time
+    [Migration("20240416153643_ClientUpdated")]
+    partial class ClientUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -263,6 +263,9 @@ namespace TimeTest.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
+                    b.Property<double?>("TimeBlock")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
@@ -300,8 +303,6 @@ namespace TimeTest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.ToTable("Times");
                 });
@@ -355,17 +356,6 @@ namespace TimeTest.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TimeTest.Models.Time", b =>
-                {
-                    b.HasOne("TimeTest.Models.Clients.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
                 });
 #pragma warning restore 612, 618
         }

@@ -35,7 +35,7 @@
                 {
                     <tbody>
                         <tr>
-                            <td>@client.Name</td>
+                            <td><a asp-action="Details" asp-route-id="@client.Id">@client.Name</a></td>
                             <td>@client.Email</td>
                             <td>@client.Phone</td>
                             <td>@client.GetBillingAddress()</td>
