@@ -27,6 +27,16 @@ namespace TimeTest.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult AddTime([FromForm] double TimeBlock, int id)
+        {
+            Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == id);
+            client.TimeBlock = client.AddTimeBlock(TimeBlock);
+            _clientRepository.UpdateClient(client);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
