@@ -97,6 +97,8 @@ namespace TimeTest.Controllers
         public RedirectToActionResult Delete(int id)
         {
             Time time = _timeRepository.Times.FirstOrDefault(t => t.Id == id);
+            Client client = _clientRepository.Clients.FirstOrDefault(c => c.Id == time.ClientId);
+            client.TimeBlock = client.AddTimeBlock(time.HoursWorked());
             _timeRepository.DeleteTime(time);
             return RedirectToAction("List");
         }

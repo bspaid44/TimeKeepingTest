@@ -60,7 +60,7 @@ namespace TimeTest.Models.Clients
         public double SubtractTimeWorked(double hoursWorked)
         {
             TimeBlock -= hoursWorked;
-            return (double)TimeBlock;
+            return Math.Round((double)TimeBlock, 2);
         }
     }
 }

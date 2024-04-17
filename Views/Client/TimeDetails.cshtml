@@ -32,8 +32,8 @@
                         <td>@time.HoursWorked()</td>
                         @if (User.IsInRole("Admin"))
                         {
-                            <td><a asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>
-                            <td><a asp-action="Delete" asp-route-id="@time.Id" class="btn btn-danger">Delete</a></td>
+                            <td><a asp-controller="Time" asp-action="Edit" asp-route-id="@time.Id" class="btn btn-primary">Edit</a></td>
+                            <td><a asp-controller="Time" asp-action="Delete" asp-route-id="@time.Id" class="btn btn-danger">Delete</a></td>
                         }
                     </tr>
                 </tbody>
